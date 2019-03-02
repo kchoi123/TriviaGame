@@ -53,7 +53,7 @@ $("#answer-holder1").on("click", function () {
 
 // Click listener for answer2
 $("#answer-holder2").on("click", function () {
-    holder2 = $(this).val(); 
+    holder2 = $(this).val();
     console.log($(this).val());
 });
 
@@ -68,6 +68,8 @@ $("#answer-holder3").on("click", function () {
 
 // Function for starting the game
 function startGame() {
+    $("#start").hide("");
+    resetHolderValues()
     showQuestion(0);
     numCountDown030();
 };
@@ -81,21 +83,22 @@ function decrement030() {
     $("#show-number").html("<h2>" + number + "<h2>");
 
     if (holder2 === "2") {
+        clearInterval(countDown);
         number = 30;
         correctAnswer(0);
         numCountDown05();
     } else if (number === 0) {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(0);
         numCountDown05();
     } else if (holder1 === "1") {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(0);
         numCountDown05();
     } else if (holder3 === "3") {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(0);
         numCountDown05();
@@ -110,8 +113,9 @@ function decrement05() {
     numberEnd--;
     $("#show-number").html("<h2>" + numberEnd + "<h2>");
     if (numberEnd === 0) {
-        outOfTime();
+        clearInterval(countDown);
         numberEnd = 5;
+        resetHolderValues()
         secondQuetion();
     }
 };
@@ -130,21 +134,22 @@ function decrement130() {
     $("#show-number").html("<h2>" + number + "<h2>");
 
     if (holder1 === "1") {
+        clearInterval(countDown);
         number = 30;
         correctAnswer(1);
         numCountDown15();
     } else if (number === 0) {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(1);
         numCountDown15();
     } else if (holder2 === "2") {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(1);
         numCountDown15();
     } else if (holder3 === "3") {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(1);
         numCountDown15();
@@ -159,8 +164,9 @@ function decrement15() {
     numberEnd--;
     $("#show-number").html("<h2>" + numberEnd + "<h2>");
     if (numberEnd === 0) {
-        outOfTime();
+        clearInterval(countDown);
         numberEnd = 5;
+        resetHolderValues()
         thirdQuetion();
     }
 };
@@ -177,23 +183,24 @@ function numCountDown230() {
 function decrement230() {
     number--;
     $("#show-number").html("<h2>" + number + "<h2>");
-    
+
     if (holder3 === "3") {
+        clearInterval(countDown);
         number = 30;
         correctAnswer(2);
         numCountDown25();
     } else if (number === 0) {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(2);
         numCountDown25();
     } else if (holder2 === "2") {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(2);
         numCountDown25();
     } else if (holder1 === "1") {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(2);
         numCountDown25();
@@ -208,8 +215,9 @@ function decrement25() {
     numberEnd--;
     $("#show-number").html("<h2>" + numberEnd + "<h2>");
     if (numberEnd === 0) {
-        outOfTime();
+        clearInterval(countDown);
         numberEnd = 5;
+        resetHolderValues()
         fourthQuetion();
     }
 };
@@ -226,26 +234,27 @@ function numCountDown330() {
 function decrement330() {
     number--;
     $("#show-number").html("<h2>" + number + "<h2>");
-    
+
     if (holder1 === "1") {
+        clearInterval(countDown);
         number = 30;
         correctAnswer(3);
-        numCountDown05();
+        setTimeout($("#start").show(), 1000 * 3)
     } else if (number === 0) {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(3);
-        numCountDown05();
+        setTimeout($("#start").show(), 1000 * 3)
     } else if (holder2 === "2") {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(3);
-        numCountDown05();
+        setTimeout($("#start").show(), 1000 * 3)
     } else if (holder3 === "3") {
-        outOfTime();
+        clearInterval(countDown);
         number = 30;
         showAnswer(3);
-        numCountDown05();
+        setTimeout($("#start").show(), 1000 * 3)
     }
 };
 
@@ -260,10 +269,6 @@ function totalScore() {
 
 
 // Functions that are being called back:
-function outOfTime() {
-    clearInterval(countDown);
-};
-
 function showQuestion(index) {
     $("#answer-holder1").show();
     $("#answer-holder2").show();
@@ -286,9 +291,17 @@ function correctAnswer(index) {
     $("#answer-holder3").hide("_");
 }
 
+function resetHolderValues() {
+    holder1 = undefined;
+    holder2 = undefined;
+    holder3 = undefined;
+}
 
-
-
-// Debugging purposes
-console.log(showQuestion);
-console.log(count);
+// Using dynamic text
+// function showQuestion(index) {
+//     $("#questionBox").empty();
+//     $("#questionBox").append(questions.qaList[index].question);
+//     $("#questionBox").append(questions.qaList[index].answer1);
+//     $("#questionBox").append(questions.qaList[index].answer2);
+//     $("#questionBox").append(questions.qaList[index].answer3);
+// }
