@@ -1,0 +1,19 @@
+/* making my styles here */
+
+header {
+    font-size: 50px;
+    font-weight: bold;
+    font-family: "Arial", Helvetica, sans-serif;
+}
+
+body {
+    width: 250px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Arial", Helvetica, sans-serif;
+    background-color: azure;
+}
+
+hr {
+    border-top: 1px dotted aquamarine;
+  }
