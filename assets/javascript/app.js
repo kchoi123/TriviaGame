@@ -9,6 +9,8 @@ var value;
 var holder1;
 var holder2;
 var holder3;
+var correct = 0;
+var wrong = 0;
 var questions = {
     qaList: [{
         question: "Question #1: Commonly used data types DO NOT include:",
@@ -38,8 +40,6 @@ var answers = [
     questions.qaList[2].answer3,
     questions.qaList[3].answer1
 ];
-var correct = "You're correct!";
-
 
 
 // Click to start Trivia timer or trivia
@@ -48,19 +48,19 @@ $("#start").click(startGame);
 // Click listener for answer1
 $("#answer-holder1").on("click", function () {
     holder1 = $(this).val();
-    console.log($(this).val());
+    // console.log($(this).val());
 });
 
 // Click listener for answer2
 $("#answer-holder2").on("click", function () {
     holder2 = $(this).val();
-    console.log($(this).val());
+    // console.log($(this).val());
 });
 
 // Click listener for answer3
 $("#answer-holder3").on("click", function () {
     holder3 = $(this).val();
-    console.log($(this).val());
+    // console.log($(this).val());
 });
 
 
@@ -85,21 +85,25 @@ function decrement030() {
     if (holder2 === "2") {
         clearInterval(countDown);
         number = 30;
+        correct++;
         correctAnswer(0);
         numCountDown05();
     } else if (number === 0) {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(0);
         numCountDown05();
     } else if (holder1 === "1") {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(0);
         numCountDown05();
     } else if (holder3 === "3") {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(0);
         numCountDown05();
     }
@@ -136,21 +140,25 @@ function decrement130() {
     if (holder1 === "1") {
         clearInterval(countDown);
         number = 30;
+        correct++;
         correctAnswer(1);
         numCountDown15();
     } else if (number === 0) {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(1);
         numCountDown15();
     } else if (holder2 === "2") {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(1);
         numCountDown15();
     } else if (holder3 === "3") {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(1);
         numCountDown15();
     }
@@ -187,21 +195,25 @@ function decrement230() {
     if (holder3 === "3") {
         clearInterval(countDown);
         number = 30;
+        correct++;
         correctAnswer(2);
         numCountDown25();
     } else if (number === 0) {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(2);
         numCountDown25();
     } else if (holder2 === "2") {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(2);
         numCountDown25();
     } else if (holder1 === "1") {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(2);
         numCountDown25();
     }
@@ -238,32 +250,46 @@ function decrement330() {
     if (holder1 === "1") {
         clearInterval(countDown);
         number = 30;
+        correct++;
         correctAnswer(3);
-        setTimeout($("#start").show(), 1000 * 3)
+        numCountDown35()
     } else if (number === 0) {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(3);
-        setTimeout($("#start").show(), 1000 * 3)
+        numCountDown35()
     } else if (holder2 === "2") {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(3);
-        setTimeout($("#start").show(), 1000 * 3)
+        numCountDown35()
     } else if (holder3 === "3") {
         clearInterval(countDown);
         number = 30;
+        wrong++;
         showAnswer(3);
-        setTimeout($("#start").show(), 1000 * 3)
+        numCountDown35()
     }
 };
 
-function totalScore() {
-    $("#question-holder").text("Your score is bad");
-    $("#answer-holder1").hide("Question #2");
-    $("#answer-holder2").hide("Question #3");
-    $("#answer-holder3").hide("Question #4");
-}
+function numCountDown35() {
+    countDown = setInterval(decrement35, 1000);
+};
+
+function decrement35() {
+    numberEnd--;
+    $("#show-number").html("<h2>" + numberEnd + "<h2>");
+    if (numberEnd === 0) {
+        clearInterval(countDown);
+        numberEnd = 5;
+        resetHolderValues()
+        $("#start").show();
+        totalScore();
+    }
+};
+
 
 
 
@@ -280,7 +306,7 @@ function showQuestion(index) {
 };
 
 function showAnswer(index) {
-    $("#answer-holder1").text("The answer is: " + answers[index]);
+    $("#answer-holder1").text("WRONG!!! The answer is: " + answers[index]);
     $("#answer-holder2").hide("_");
     $("#answer-holder3").hide("_");
 };
@@ -289,6 +315,13 @@ function correctAnswer(index) {
     $("#answer-holder1").text("You are correct! " + answers[index]);
     $("#answer-holder2").hide("_");
     $("#answer-holder3").hide("_");
+}
+
+function totalScore() {
+    $("#question-holder").text("Your Score!");
+    $("#answer-holder1").text("Answer Correct: " + correct + "  Wrong: " + wrong);
+    correct = 0;
+    wrong = 0;
 }
 
 function resetHolderValues() {
